@@ -27,27 +27,26 @@ def fetch_or_clone(git_server_uri: str, repo_name: str, fetch: bool=True, clone:
             # Repo already exists locally.
             # Just fetch the latest changes.
 
-            print("Fetching {repo_name} ...".format(repo_name=repo_name))
+            print("[fetch] {repo_name} ...".format(repo_name=repo_name))
             if not DRY_RUN:
                 repo = git.Repo(path=repo_path)
                 for remote in repo.remotes:
                     remote.fetch()
 
         else:
-            if DEBUG: print("( Skipping fetch for {repo_name} )".format(repo_name=repo_name))
+            if DEBUG: print("[debug] ( Skipping fetch for {repo_name} )".format(repo_name=repo_name))
 
     else: # Source tree for repo does not yet exist, locally. Clone it.
         if clone:
             # Repo does not yet exist, locally.
             # Clone it.
-            print("{repo_name} does not exist.".format(repo_name=repo_name))
-            print(" -> Cloning {repo_name} ...".format(repo_name=repo_name))
+            print("[clone] {repo_name} ...".format(repo_name=repo_name))
             if not DRY_RUN:
-                if DEBUG: print(f"git.Repo.clone_from(url='{repo_url}', to_path='{repo_path}')")
+                if DEBUG: print(f"[debug] git.Repo.clone_from(url='{repo_url}', to_path='{repo_path}')")
                 git.Repo.clone_from(url=repo_url, to_path=repo_path)
 
         else:
-            if DEBUG: print("( Skipping clone for {repo_name} )".format(repo_name=repo_name))
+            if DEBUG: print("[debug] ( Skipping clone for {repo_name} )".format(repo_name=repo_name))
 
 
 def main(targets: str, fetch: bool=True, clone: bool=True):

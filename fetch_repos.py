@@ -43,6 +43,7 @@ def fetch_or_clone(git_server_uri: str, repo_name: str, fetch: bool=True, clone:
             print("{repo_name} does not exist.".format(repo_name=repo_name))
             print(" -> Cloning {repo_name} ...".format(repo_name=repo_name))
             if not DRY_RUN:
+                if DEBUG: print(f"git.Repo.clone_from(url='{repo_url}', to_path='{repo_path}')")
                 git.Repo.clone_from(url=repo_url, to_path=repo_path)
 
         else:
